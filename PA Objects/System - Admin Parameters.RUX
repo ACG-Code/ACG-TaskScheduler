@@ -1,0 +1,38 @@
+﻿FORMAT==100
+#Region ############################################# Header #############################################
+# Rules for "System - Admin Parameters"
+# Last Updated: 2026.02.17
+# Notes:
+#     2026.02.17 (ACGI) - Initial Creation
+#EndRegion
+
+#Region --------------- System ---------------
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+
+# Consolidated Rules
+['mSystem - Admin Parameters':'mSystem - Admin Parameters':'String'] = S: IF(ELLEV('System - Admin Parameters', !System - Admin Parameters) > 0, '', CONTINUE);
+
+#Path Rules
+['System - Admin Parameters':'System - Admin Parameters':'Data Directory', 'mSystem - Admin Parameters':'mSystem - Admin Parameters':'String'] = S:
+ DB('System - Admin Parameters', 'Server Path', 'String') | 'Data\';
+
+['System - Admin Parameters':'System - Admin Parameters':'Logging Directory', 'mSystem - Admin Parameters':'mSystem - Admin Parameters':'String'] = S:
+  DB('System - Admin Parameters', 'Server Path', 'String') | 'Logs\';
+
+['System - Admin Parameters':'System - Admin Parameters':'Scripts Directory', 'mSystem - Admin Parameters':'mSystem - Admin Parameters':'String'] = S:
+  DB('System - Admin Parameters', 'Server Path', 'String') | 'Scripts\';
+
+['System - Admin Parameters':'System - Admin Parameters':'Backup Directory', 'mSystem - Admin Parameters':'mSystem - Admin Parameters':'String'] = S:
+  DB('System - Admin Parameters', 'Server Path', 'String') | 'Backups\';
+
+FEEDERS;
+
+#Region --------------- Internal Feeders ---------------
+['System - Admin Parameters':'System - Admin Parameters':'Server Path', 'mSystem - Admin Parameters':'mSystem - Admin Parameters':'String'] =>
+  ['System - Admin Parameters':'System - Admin Parameters':'Data Directory', 'mSystem - Admin Parameters':'mSystem - Admin Parameters':'String']
+  , ['System - Admin Parameters':'System - Admin Parameters':'Logging Directory', 'mSystem - Admin Parameters':'mSystem - Admin Parameters':'String']
+  , ['System - Admin Parameters':'System - Admin Parameters':'Scripts Directory', 'mSystem - Admin Parameters':'mSystem - Admin Parameters':'String']
+  , ['System - Admin Parameters':'System - Admin Parameters':'Backup Directory', 'mSystem - Admin Parameters':'mSystem - Admin Parameters':'String'];
+#EndRegion

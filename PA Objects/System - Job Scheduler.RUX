@@ -1,0 +1,25 @@
+﻿FORMAT==100
+#Region ############################################# Header #############################################
+# Rules for "System - Job Scheduler"
+# Last Updated: 2026.02.17
+# Notes:
+#     2026.02.17 (ACGI) - Initial Creation
+#EndRegion
+
+#Region --------------- System ---------------
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+
+#Consolidated Job Rules
+['mSystem - Job Scedhuler':'mSystem - Job Scedhuler':'Next Run Date'] = C: 0;
+['mSystem - Job Scedhuler':'mSystem - Job Scedhuler':'Active'] = S: STET;
+[] = S: IF(ELLEV('System - Scheduled Jobs', !System - Scheduled Jobs) > 0, '', CONTINUE);
+[] = C: IF(ELLEV('System - Scheduled Jobs', !System - Scheduled Jobs) > 0, 0, STET);
+
+
+FEEDERS;
+
+#Region --------------- Internal Feeders ---------------
+
+#EndRegion
