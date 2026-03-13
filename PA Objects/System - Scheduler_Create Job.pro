@@ -4,7 +4,7 @@
 586,
 585,
 564,
-565,"u<_d`XNFpXpOyVVehpSN6aqGDt:K7nkt[xUaT_^@>^zk]V>Hi:ui2L9VudC1YUrkXj;;EdqqzXs@yLkf52TB5@[bfyaY_4wCiO<rwdl\a:OZyJ:WdJ[]djs^_qX6J_RpZi9nbA`PPS6meh;7?<GQm_Sujg<;R_`egoz?y[L=rx>PJ`MHT;R4TcBQ5W@q1YAK3z0MiI36"
+565,"aaakony5Lag;<kEeBeb:XCF@N?kcLjjj8kF]C^CdYqJC[JTWu:AO:n`=^f[6xUY<DrweVfprlzrmi3`KW8vzHueg=MWc@N_?Pw330lXUP:gcwXuaG_39ob1l3@WZp86m?tJGz\XfHK5eSNir3ZAdBhDOrUClMpW1Rk4Kh=9Y\>pzAbWtkVYZ3]i3Z0:77zJqM=DOxxKu"
 559,1
 928,0
 593,
@@ -25,14 +25,18 @@
 569,0
 592,0
 599,1000
-560,1
+560,2
 pJobName
-561,1
+pActive
+561,2
 2
-590,1
+2
+590,2
 pJobName,""
-637,1
+pActive,""
+637,2
 pJobName,"Enter new job name"
+pActive,""
 577,0
 578,0
 579,0
@@ -73,8 +77,10 @@ DimensionElementInsertDirect('System - Scheduled Jobs', '', pJobName, 'C');
 
 574,1
 
-575,1
+575,3
 
+AttrPutS('Job', 'System - Scheduled Jobs', pJobName, 'ElementType');
+CellPutS(pActive, 'System - Job Scheduler', pJobName, 'Active');
 576,
 930,0
 638,1

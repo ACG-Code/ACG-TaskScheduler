@@ -1,0 +1,3 @@
+﻿FORMAT==100
+['}ElementAttributes_System - Scheduled Jobs':'}ElementAttributes_System - Scheduled Jobs':'ElementType'] = S: 'Static:Job:Task';
+['}ElementAttributes_System - Scheduled Jobs':'}ElementAttributes_System - Scheduled Jobs':'ProcessName'] = S: 'Subset:}Processes:System - Picklist';

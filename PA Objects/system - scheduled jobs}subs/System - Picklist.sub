@@ -1,0 +1,10 @@
+﻿283,100
+284,"System - Picklist"
+11,20260313190407
+274,MEMBER_NAME
+18,0
+275,89
+{TM1FILTERBYLEVEL(TM1SUBSETALL([System - Scheduled Jobs].[System - Scheduled Jobs]) , 0)}
+278,0
+281,0
+270,0

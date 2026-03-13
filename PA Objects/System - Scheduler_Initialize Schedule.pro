@@ -4,7 +4,7 @@
 586,
 585,
 564,
-565,"e7Yhgab<WTMZ>YnS\NW5[\x8tN=yO:]ac\t1TFxCX<A4knnaR9hpS6wYwQJyjdWvvcuKNIfRmAx;GL`4Z<oY`\?5C<L[kXT@_kG@j5[IcguWN6k30aI=tGjkQoII5hwa;w\Btom[bck40\7O<DGb7K7hkseVGJ7k=BuBzi46jF7IEBwNhdH`s^@2ym9gQAMnX_CSSfGt"
+565,"uiWsuxX0>M;FCT@Sh<=t]asDQg8c<vQLYJ0oGUQIl68l33o\Gw@x`obUQgFEh00;gFjWBzM=Qy9pCymYH:L4FwvRe3Qo>?wmyI;]gR<0LiOZ^H5rk\ln0wTVkaF\7v]INMB0R@YEVPXNv?0Ruabzt4\Ja9wrvHOheu@y5=k@B9^L3sWA_i?3lr[k8eS;x14iG4lwmcLu"
 559,1
 928,0
 593,
@@ -69,7 +69,7 @@ WHILE(nLoop <= nCount);
     IF(sElementType @= 'Task');
         sActive = CellGetS(sCube, sElement, 'Active');
         IF(sActive @= 'Y');
-            ExecuteProcess('System - Scheduler_Calutate Next Run', 'pTask', sElement);
+            ExecuteProcess('System - Scheduler_Calculate Next Run', 'pTask', sElement);
         ENDIF;
     ENDIF;
     

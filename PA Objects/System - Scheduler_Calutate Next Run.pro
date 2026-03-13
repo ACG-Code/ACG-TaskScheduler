@@ -4,7 +4,7 @@
 586,
 585,
 564,
-565,"lwE63Ym>RwJwatXD5XQ1DWF:1X97UFw_f0MdnIaA`2ow8VpRPUccKXzd0my7^=9kkMBe0UgK5DvnwgpC>Sgn\tT6E=n^PI`EfDf\d6fesl7iA?8^V[@59pbwBg<q^4<AipCikkPq]P;xlYx6y>GQocooIzza[yG_2eJLvoW>_@gjt;RFugloMyqIElmDjM57[LKar^cH"
+565,"jYxo:?Rpaja=R9C>qN3IAtamwc7\WGTGAK7R_wwP@Up746tvtIp<<P?Sn0[HcRq64WX1ADSJQfV>0f?8HZy=uCe_bvK>=4\<1]U\<3q\HdSTU13PobsVPFP4zNiYI8IfP92HeUiA0?b79r9@3A9khtxnU7PtZ[Vo4pk<PVAJ5_Yw6Gc60aM[GxT[Sfxkd;Q0bD8W7WQ0"
 559,1
 928,0
 593,
@@ -40,7 +40,7 @@ pTask,""
 581,0
 582,0
 603,0
-572,170
+572,165
 
 #Region ############################################# HEADER #############################################
 # Process: System - Scheduler_Calutate Next Run
@@ -68,11 +68,14 @@ sLastRunDate = CellGetS(sCube, pTask, 'Last Run Date');
 nNextRunDate = 0;
 #EndRegion
 
+IF(pTask @= 'Weekly Metadata Refresh|Get Metadata files');
+    c = 5;
+ENDIF;
+
 #Region --------------- Daily Schedule ---------------
 IF(sScheduleType @= 'Daily');
     IF(sLastRunDate @= sToday);
-        nNextDay = nToday + 1;
-        nNextRunDate = nNextDay + nDateOffset;
+        nNextRunDate = nToday + 1 + nDateOffset;
     ELSE;
         nNextRunDate = nTodayFormatted;
     ENDIF;
@@ -80,32 +83,33 @@ ENDIF;
 #EndRegion
 
 #Region --------------- Weekly Schedule ---------------
+
 IF(sScheduleType @= 'Weekly');
     nDaysChecked = 0;
     bFound = 0;
     
-    WHILE(nDaysChecked < 8 & bFound = 0);
+    IF(sLastRunDate @= sToday);
+        nDaysChecked = 1;
+    ENDIF;
+    
+    WHILE(nDaysChecked < 14 & bFound = 0);
         nCheckDay = nToday + nDaysChecked;
-        dCheckDate = nCheckDay;
-        sCheckDateStr = TimSt(dCheckDate, '\Y-\m-\d');
         
-        nDOW = Mod(nCheckDay, 7);
-        IF(nDOW = 0);
-            nDOW = 7;
-        ENDIF;
+        # Calculate day of week: 1=Mon, 2=Tue... 7=Sun
+        nModResult = Mod(nCheckDay, 7);
+        nDOW = Mod(nModResult + 4, 7) + 1;
         
         sDOWStr = NumberToString(nDOW);
         
+        # Remove decimal if present
+        nDot = Scan('.', sDOWStr);
+        IF(nDot > 0);
+            sDOWStr = SubSt(sDOWStr, 1, nDot - 1);
+        ENDIF;
+        
         IF(Scan(sDOWStr, sDaysOfWeek) > 0);
-            IF(sCheckDateStr @= sToday);
-                IF(sLastRunDate @<> sToday);
-                    nNextRunDate = nCheckDay + nDateOffset;
-                    bFound = 1;
-                ENDIF;
-            ELSE;
-                nNextRunDate = nCheckDay + nDateOffset;
-                bFound = 1;
-            ENDIF;
+            nNextRunDate = nCheckDay + nDateOffset;
+            bFound = 1;
         ENDIF;
         
         nDaysChecked = nDaysChecked + 1;
@@ -118,12 +122,14 @@ IF(sScheduleType @= 'Monthly');
     nDaysChecked = 0;
     bFound = 0;
     
+    IF(sLastRunDate @= sToday);
+        nDaysChecked = 1;
+    ENDIF;
+    
     WHILE(nDaysChecked < 62 & bFound = 0);
         nCheckDay = nToday + nDaysChecked;
-        dCheckDate = nCheckDay;
-        sCheckDateStr = TimSt(dCheckDate, '\Y-\m-\d');
         
-        sDayOfMonthStr = TimSt(dCheckDate, '\d');
+        sDayOfMonthStr = TimSt(nCheckDay, '\d');
         
         IF(SubSt(sDayOfMonthStr, 1, 1) @= '0');
             sDayOfMonthStr = SubSt(sDayOfMonthStr, 2, 1);
@@ -133,15 +139,8 @@ IF(sScheduleType @= 'Monthly');
         sSearchDay = ',' | sDayOfMonthStr | ',';
         
         IF(Scan(sSearchDay, sTempDays) > 0);
-            IF(sCheckDateStr @= sToday);
-                IF(sLastRunDate @<> sToday);
-                    nNextRunDate = nCheckDay + nDateOffset;
-                    bFound = 1;
-                ENDIF;
-            ELSE;
-                nNextRunDate = nCheckDay + nDateOffset;
-                bFound = 1;
-            ENDIF;
+            nNextRunDate = nCheckDay + nDateOffset;
+            bFound = 1;
         ENDIF;
         
         nDaysChecked = nDaysChecked + 1;
@@ -154,7 +153,6 @@ IF(sScheduleType @= 'Specific');
     sRemaining = sSpecificDates;
     sEarliestDate = '';
     
-    # Find the earliest future date from the list
     WHILE(Long(sRemaining) > 0);
         nComma = Scan(',', sRemaining);
         IF(nComma > 0);
@@ -166,14 +164,12 @@ IF(sScheduleType @= 'Specific');
         ENDIF;
         
         IF(Long(sCheckDate) = 10);
-            # Check if date is today and hasn't run yet
             IF(sCheckDate @= sToday);
                 IF(sLastRunDate @<> sToday);
                     IF(sEarliestDate @= '' % sCheckDate @< sEarliestDate);
                         sEarliestDate = sCheckDate;
                     ENDIF;
                 ENDIF;
-            # Check if date is in the future
             ELSEIF(sCheckDate @> sToday);
                 IF(sEarliestDate @= '' % sCheckDate @< sEarliestDate);
                     sEarliestDate = sCheckDate;
@@ -182,12 +178,10 @@ IF(sScheduleType @= 'Specific');
         ENDIF;
     END;
     
-    # Convert earliest date to day number
     IF(sEarliestDate @<> '');
         IF(sEarliestDate @= sToday);
             nNextRunDate = nTodayFormatted;
         ELSE;
-            # Calculate days between today and target by iterating
             nDaysDiff = 0;
             sTempDate = sToday;
             WHILE(sTempDate @< sEarliestDate & nDaysDiff < 400);
@@ -199,6 +193,7 @@ IF(sScheduleType @= 'Specific');
         ENDIF;
     ENDIF;
 ENDIF;
+
 #EndRegion
 
 #Region --------------- Set Next Run Date And Status ---------------

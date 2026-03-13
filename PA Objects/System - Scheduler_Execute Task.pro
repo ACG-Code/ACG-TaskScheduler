@@ -4,7 +4,7 @@
 586,
 585,
 564,
-565,"zUQX?DBS^OEZSSp:cNQ\h2dIF^aetltUJ\j=Vakh8VUiKc=]QBqSc7@yQ4tiubs=DeAgyTbGpd2VGB3?@GZiam;x`:]lFHjamb;[LCpe_yuvY`uicu_\W2_TZ\g1RqqsZ:vDeAI47xu>6Fmq?b9e>wRyTO<;Kl5=\cNE[o:ULHoOfuYbX?lQZNaY\sIut`sWu3M0n;TB"
+565,"tMCF@?r]Ks3NqwKGsaymajUf938j6<NAo`_pSGcSFSx<[]Y`ICbQZbex1PuqjQ]9DDq_Yec2eL]TGPIbVZ85HvmWUHAGY[s`kV3VB09V:w=r;@H6GqW?9Hr_Z]<oU4bZ6o]V;Hj9vVRz:3ScXs\H4CKpC@?X6hyfF554v>fScFCJZr0Qed9gX6>c`HkSmshHAru:<jVG"
 559,1
 928,0
 593,
@@ -40,7 +40,7 @@ pTask,""
 581,0
 582,0
 603,0
-572,54
+572,53
 
 #Region ############################################# HEADER #############################################
 # Process: System - Scheduler_Execute Task
@@ -94,7 +94,6 @@ CellPutS('N', sCube, pTask, 'Execute Now');
 #Region --------------- Execute Target Process ---------------
 nResult = ExecuteProcess(sProcessName);
 #EndRegion
-
 573,1
 
 574,1
@@ -115,7 +114,7 @@ ENDIF;
 # Always set CurrentStatus here - don't rely on CalculateNextRun
 CellPutS('⏳ Pending', sCube, pTask, 'Current Status');
 
-ExecuteProcess('System - Scheduler_Calutate Next Run', 'pTask', pTask);
+ExecuteProcess('System - Scheduler_Calculate Next Run', 'pTask', pTask );
 #EndRegion
 576,
 930,0

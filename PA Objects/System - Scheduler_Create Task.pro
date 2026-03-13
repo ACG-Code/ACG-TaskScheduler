@@ -4,7 +4,7 @@
 586,
 585,
 564,
-565,"eR`[JaSNcKhJJFZ3\2<IqIL3Xc;r7PB2w4[AsrJ;LzqCX6K?Qx[DThDTgF7p@7Pef78yvedXB<19BH?KpV63uw]XjCS3@\ggXlZX9SOA@YbXlLi\vHXxn2@h\E]<YwGe2VCob<e5eEYcungJ>]\AZqNTMXuDwfhfgYRSMp[qpgbt>KjeOrUKGAZD\ogU<Nct:<<AuY2m"
+565,"cDTa=oCGZlgzBtFtDXDd8tQAX`;5E=tiVP269TaJ>N1\v<m7SB4SU\MCGix`zl@_;t5QHXk3V[1g1]kg[too9enx02z]aW\A\dPgZ\KK3YNzDb<1K=dvn[LsW0a8NWfY@RH@3OHf0OJRN@ArZk`P4qd355ZVIzB9D>K<ep4\T=JYLBd<WqD3t?oNhEq\0J:?yX0NuPxC"
 559,1
 928,0
 593,
@@ -88,7 +88,7 @@ pActive,"Y or N"
 581,0
 582,0
 603,0
-572,189
+572,188
 
 #Region ############################################# HEADER #############################################
 # Process: System - Scheduler_Create Task
@@ -275,9 +275,8 @@ CellPutS('⏳ Pending', sCube, sFullTaskName, 'Current Status');
 #EndRegion
 
 #Region ---------------  Calculate Next Run Date ---------------
-ExecuteProcess('System - Scheduler_Calutate Next Run', 'pTask', sFullTaskName);
+ExecuteProcess('System - Scheduler_Calculate Next Run', 'pTask', sFullTaskName);
 #EndRegion
-
 573,1
 
 574,1
